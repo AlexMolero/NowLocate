@@ -1,0 +1,50 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "expedicion",
+            "otherEntityName": "expedicion",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "delegacionInicio"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "expedicionFin",
+            "otherEntityName": "expedicion",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "delegacionFin"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "localidad",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "volumenAlmacen",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "calle",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "latitud",
+            "fieldType": "Double"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "longitud",
+            "fieldType": "Double"
+        }
+
+    ],
+    "changelogDate": "20160307111300",
+    "dto": "no",
+    "service": "no",
+    "pagination": "pagination"
+}

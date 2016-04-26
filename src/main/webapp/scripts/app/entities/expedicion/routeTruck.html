@@ -1,0 +1,50 @@
+<div>
+    <h2 translate="nowLocateApp.expedicion.home.title">Rutas</h2>
+    <jh-alert></jh-alert>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+
+            <tbody>
+                <tr ng-repeat="expedicion in expedicions track by expedicion.id">
+                    <td><a ui-sref="expedicion.detail({id:expedicion.id})">{{expedicion.id}}</a></td>
+                        <td>{{expedicion.fechaInicio | date:'mediumDate'}}</td>
+                        <td>{{expedicion.fechaEntrega | date:'mediumDate'}}</td>
+                    <td>{{expedicion.frigorifico}}</td>
+                    <td>{{expedicion.tempMax}}</td>
+                    <td>{{expedicion.tempMin}}</td>
+                    <td>{{expedicion.descripcion}}</td>
+                    <td>
+                        <a ui-sref="camion.detail({id:expedicion.camion.id})">{{expedicion.camion.matricula}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="delegacion.detail({id:expedicion.delegacionInicio.id})">{{expedicion.delegacionInicio.localidad}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="delegacion.detail({id:expedicion.delegacionFin.id})">{{expedicion.delegacionFin.localidad}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="expedicion.detail({id:expedicion.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="expedicion.edit({id:expedicion.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="expedicion.delete({id:expedicion.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

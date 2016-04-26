@@ -1,0 +1,27 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "expedicion",
+            "otherEntityName": "expedicion",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "camion"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "matricula",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "volumen",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20160307104905",
+    "dto": "no",
+    "service": "no",
+    "pagination": "pagination"
+}

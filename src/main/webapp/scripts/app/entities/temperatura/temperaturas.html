@@ -1,0 +1,66 @@
+<div>
+    <h2 translate="nowLocateApp.temperatura.home.title">Temperaturas</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="temperatura.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="nowLocateApp.temperatura.home.createLabel">Create a new Temperatura</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Temperatura</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="hora"><span translate="nowLocateApp.temperatura.hora">Hora</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="temperatura"><span translate="nowLocateApp.temperatura.temperatura">Temperatura</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="expedicion.id"><span translate="nowLocateApp.temperatura.expedicion">expedicion</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="temperatura in temperaturas track by temperatura.id">
+                    <td><a ui-sref="temperatura.detail({id:temperatura.id})">{{temperatura.id}}</a></td>
+                    <td>{{temperatura.hora | date:'medium'}}</td>
+                    <td>{{temperatura.temperatura}}</td>
+                    <td>
+                        <a ui-sref="expedicion.detail({id:temperatura.expedicion.id})">{{temperatura.expedicion.id}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="temperatura.detail({id:temperatura.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="temperatura.edit({id:temperatura.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="temperatura.delete({id:temperatura.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

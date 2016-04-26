@@ -1,0 +1,61 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "camion",
+            "otherEntityName": "camion",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "matricula"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "delegacionInicio",
+            "otherEntityName": "delegacion",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "localidad"
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "delegacionFin",
+            "otherEntityName": "delegacion",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "localidad"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "fechaInicio",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "fechaEntrega",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "frigorifico",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "tempMax",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "tempMin",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160307115853",
+    "dto": "no",
+    "service": "no",
+    "pagination": "pagination"
+}

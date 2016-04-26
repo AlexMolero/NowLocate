@@ -1,0 +1,46 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTemperaturaLabel" translate="nowLocateApp.temperatura.home.createOrEditLabel">Create or edit a Temperatura</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="temperatura.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.temperatura.hora" for="field_hora">Hora</label>
+            <input id="field_hora" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="temperatura.hora" is-open="datePickerForHora.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForHoraOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.temperatura.temperatura" for="field_temperatura">Temperatura</label>
+            <input type="number" class="form-control" name="temperatura" id="field_temperatura"
+                    ng-model="temperatura.temperatura"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="nowLocateApp.temperatura.expedicion" for="field_expedicion">expedicion</label>
+            <select class="form-control" id="field_expedicion" name="expedicion" ng-model="temperatura.expedicion" ng-options="expedicion as expedicion.id for expedicion in expedicions track by expedicion.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

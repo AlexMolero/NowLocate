@@ -1,0 +1,23 @@
+{
+    "nowLocateApp": {
+        "temperatura" : {
+            "home": {
+                "title": "Temperaturas",
+                "createLabel": "Create a new Temperatura",
+                "createOrEditLabel": "Create or edit a Temperatura"
+            },
+            "created": "A new Temperatura is created with identifier {{ param }}",
+            "updated": "A Temperatura is updated with identifier {{ param }}",
+            "deleted": "A Temperatura is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Temperatura {{ id }}?"
+            },
+            "detail": {
+                "title": "Temperatura"
+            },
+            "hora": "Hora",
+            "temperatura": "Temperatura",
+            "expedicion": "Expedicion"
+        }
+    }
+}

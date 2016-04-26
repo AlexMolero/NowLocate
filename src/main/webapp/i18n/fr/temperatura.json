@@ -1,0 +1,24 @@
+{
+    "nowLocateApp": {
+        "temperatura" : {
+            "home": {
+                "title": "Temperaturas",
+                "createLabel": "Créer un nouveau Temperatura",
+                "createOrEditLabel": "Créer ou éditer un Temperatura"
+            },
+            "created": "Un nouveau Temperatura a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Temperatura avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Temperatura avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Temperatura {{ id }} ?"
+            },
+            "detail": {
+                "title": "Temperatura"
+            },
+            "hora": "Hora",
+            "temperatura": "Temperatura",
+            "expedicion": "Expedicion"
+        }
+    }
+}
+

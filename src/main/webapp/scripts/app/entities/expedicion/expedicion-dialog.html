@@ -1,0 +1,84 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myExpedicionLabel" translate="nowLocateApp.expedicion.home.createOrEditLabel">Create or edit a Expedicion</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="expedicion.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.expedicion.fechaInicio" for="field_fechaInicio">FechaInicio</label>
+            <input id="field_fechaInicio" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="expedicion.fechaInicio" is-open="datePickerForFechaInicio.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForFechaInicioOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.expedicion.fechaEntrega" for="field_fechaEntrega">FechaEntrega</label>
+            <input id="field_fechaEntrega" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="expedicion.fechaEntrega" is-open="datePickerForFechaEntrega.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForFechaEntregaOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.expedicion.frigorifico" for="field_frigorifico">Frigorifico</label>
+            <input type="checkbox" class="form-control" name="frigorifico" id="field_frigorifico"
+                    ng-model="expedicion.frigorifico"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.expedicion.tempMax" for="field_tempMax">TempMax</label>
+            <input type="number" class="form-control" name="tempMax" id="field_tempMax"
+                    ng-model="expedicion.tempMax"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.expedicion.tempMin" for="field_tempMin">TempMin</label>
+            <input type="number" class="form-control" name="tempMin" id="field_tempMin"
+                    ng-model="expedicion.tempMin"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="nowLocateApp.expedicion.descripcion" for="field_descripcion">Descripcion</label>
+            <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                    ng-model="expedicion.descripcion"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="nowLocateApp.expedicion.camion" for="field_camion">camion</label>
+            <select class="form-control" id="field_camion" name="camion" ng-model="expedicion.camion" ng-options="camion as camion.matricula for camion in camions track by camion.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="nowLocateApp.expedicion.delegacionInicio" for="field_delegacionInicio">delegacionInicio</label>
+            <select class="form-control" id="field_delegacionInicio" name="delegacionInicio" ng-model="expedicion.delegacionInicio" ng-options="delegacion as delegacion.localidad for delegacion in delegacions track by delegacion.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="nowLocateApp.expedicion.delegacionFin" for="field_delegacionFin">delegacionFin</label>
+            <select class="form-control" id="field_delegacionFin" name="delegacionFin" ng-model="expedicion.delegacionFin" ng-options="delegacion as delegacion.localidad for delegacion in delegacions track by delegacion.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

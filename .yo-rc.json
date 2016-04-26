@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "nowLocate",
+    "packageName": "com.mycompany.myapp",
+    "packageFolder": "com/mycompany/myapp",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": true,
+    "enableSocialSignIn": true,
+    "rememberMeKey": "082c15bb1f0eef8d1a8987c646cfc83e51d2c259",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}

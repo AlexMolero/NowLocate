@@ -1,0 +1,27 @@
+{
+    "nowLocateApp": {
+        "delegacion" : {
+            "home": {
+                "title": "Delegacions",
+                "createLabel": "Crear nuevo Delegacion",
+                "createOrEditLabel": "Crear o editar Delegacion"
+            },
+            "created": "Un nuevo Delegacion ha sido creado con el identificador {{ param }}",
+            "updated": "Un Delegacion ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Delegacion ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Delegacion {{ id }}?"
+            },
+            "detail": {
+                "title": "Delegacion"
+            },
+            "localidad": "Localidad",
+            "volumenAlmacen": "VolumenAlmacen",
+            "calle": "Calle",
+            "latitud": "Latitud",
+            "longitud": "Longitud",
+            "expedicion": "Expedicion",
+            "expedicionFin": "ExpedicionFin"
+        }
+    }
+}

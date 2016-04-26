@@ -1,0 +1,24 @@
+{
+    "nowLocateApp": {
+        "camion" : {
+            "home": {
+                "title": "Camions",
+                "createLabel": "Créer un nouveau Camion",
+                "createOrEditLabel": "Créer ou éditer un Camion"
+            },
+            "created": "Un nouveau Camion a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Camion avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Camion avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Camion {{ id }} ?"
+            },
+            "detail": {
+                "title": "Camion"
+            },
+            "matricula": "Matricula",
+            "volumen": "Volumen",
+            "expedicion": "Expedicion"
+        }
+    }
+}
+

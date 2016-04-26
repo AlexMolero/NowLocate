@@ -1,0 +1,30 @@
+{
+    "nowLocateApp": {
+        "expedicion" : {
+            "home": {
+                "title": "Expedicions",
+                "createLabel": "Créer un nouveau Expedicion",
+                "createOrEditLabel": "Créer ou éditer un Expedicion"
+            },
+            "created": "Un nouveau Expedicion a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Expedicion avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Expedicion avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Expedicion {{ id }} ?"
+            },
+            "detail": {
+                "title": "Expedicion"
+            },
+            "fechaInicio": "FechaInicio",
+            "fechaEntrega": "FechaEntrega",
+            "frigorifico": "Frigorifico",
+            "tempMax": "TempMax",
+            "tempMin": "TempMin",
+            "descripcion": "Descripcion",
+            "camion": "Camion",
+            "delegacionInicio": "DelegacionInicio",
+            "delegacionFin": "DelegacionFin"
+        }
+    }
+}
+

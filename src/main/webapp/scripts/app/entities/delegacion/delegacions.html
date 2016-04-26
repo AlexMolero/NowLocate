@@ -1,0 +1,96 @@
+
+<div>
+    <h2 translate="nowLocateApp.delegacion.home.title">Delegacions</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="delegacion.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="nowLocateApp.delegacion.home.createLabel">Create a new Delegacion</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Delegacion</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="localidad"><span translate="nowLocateApp.delegacion.localidad">Localidad</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="volumenAlmacen"><span translate="nowLocateApp.delegacion.volumenAlmacen">VolumenAlmacen</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="calle"><span translate="nowLocateApp.delegacion.calle">Calle</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="latitud"><span translate="nowLocateApp.delegacion.latitud">Latitud</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="longitud"><span translate="nowLocateApp.delegacion.longitud">Longitud</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="delegacion in delegacions track by delegacion.id">
+                <td><a ui-sref="delegacion.detail({id:delegacion.id})">{{delegacion.id}}</a></td>
+                <td>{{delegacion.localidad}}</td>
+                <td>{{delegacion.volumenAlmacen}}</td>
+                <td>{{delegacion.calle}}</td>
+                <td>{{delegacion.latitud}}</td>
+                <td>{{delegacion.longitud}}</td>
+                <td>
+                    <button type="submit"
+                            ui-sref="delegacion.detail({id:delegacion.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="delegacion.edit({id:delegacion.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="delegacion.delete({id:delegacion.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="panel panel-default" ng-repeat="delegacion in delegacions track by delegacion.id">
+            <div class="panel-body">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+
+                    <ng-map center="[{{delegacion.latitud}},{{delegacion.longitud}}]" class=""><marker position="[{{delegacion.latitud}},{{delegacion.longitud}}]"></marker></ng-map>
+                    <div class="col-lg-12">
+                        <button type="submit"
+                                ui-sref="delegacion.detail({id:delegacion.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="delegacion.edit({id:delegacion.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="delegacion.delete({id:delegacion.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </div>
+                </div>
+                {{delegacion.id}}
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

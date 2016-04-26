@@ -1,0 +1,62 @@
+
+<div>
+    <h2><span translate="nowLocateApp.delegacion.detail.title">Delegacion</span> {{delegacion.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="nowLocateApp.delegacion.localidad">Localidad</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{delegacion.localidad}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="nowLocateApp.delegacion.volumenAlmacen">VolumenAlmacen</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{delegacion.volumenAlmacen}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="nowLocateApp.delegacion.calle">Calle</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{delegacion.calle}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="nowLocateApp.delegacion.latitud">Latitud</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{delegacion.latitud}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="nowLocateApp.delegacion.longitud">Longitud</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{delegacion.longitud}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>
