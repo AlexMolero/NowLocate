@@ -133,7 +133,7 @@ angular.module('nowLocateApp')
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     templateUrl: 'scripts/app/entities/expedicion/routeTruck.html',
-                    controller: 'ExpedicionDeleteController',
+                    controller: 'RouteTruckController',
                     size: 'md',
                     resolve: {
                         entity: ['Expedicion', function(Expedicion) {
