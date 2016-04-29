@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Expedicion;
 import com.mycompany.myapp.repository.ExpedicionRepository;
 import com.mycompany.myapp.repository.search.ExpedicionSearchRepository;
+import com.mycompany.myapp.service.MailService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -34,13 +35,16 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ExpedicionResource {
 
     private final Logger log = LoggerFactory.getLogger(ExpedicionResource.class);
-        
+
     @Inject
     private ExpedicionRepository expedicionRepository;
-    
+
     @Inject
     private ExpedicionSearchRepository expedicionSearchRepository;
-    
+
+    @Inject
+    private MailService mailService;
+
     /**
      * POST  /expedicions -> Create a new expedicion.
      */
@@ -89,7 +93,7 @@ public class ExpedicionResource {
     public ResponseEntity<List<Expedicion>> getAllExpedicions(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Expedicions");
-        Page<Expedicion> page = expedicionRepository.findAll(pageable); 
+        Page<Expedicion> page = expedicionRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/expedicions");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -102,6 +106,11 @@ public class ExpedicionResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Expedicion> getExpedicion(@PathVariable Long id) {
+
+        /* Envio de email
+        mailService.sendEmail("amoleron@gmail.com", "prueba","olakease",false,false);
+         */
+
         log.debug("REST request to get Expedicion : {}", id);
         Expedicion expedicion = expedicionRepository.findOne(id);
         return Optional.ofNullable(expedicion)
