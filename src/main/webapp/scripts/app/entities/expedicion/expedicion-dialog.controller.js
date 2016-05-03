@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('nowLocateApp').controller('ExpedicionDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Expedicion', 'Camion', 'Delegacion',
-        function($scope, $stateParams, $uibModalInstance, entity, Expedicion, Camion, Delegacion,Temperatura) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Expedicion', 'Camion', 'Delegacion', 'Temperatura',
+        function($scope, $stateParams, $uibModalInstance, entity, Expedicion, Camion, Delegacion, Temperatura) {
 
         $scope.expedicion = entity;
         $scope.camions = Camion.query();
         $scope.delegacions = Delegacion.query();
+
         $scope.load = function(id) {
             Expedicion.get({id : id}, function(result) {
                 $scope.expedicion = result;
@@ -15,6 +16,8 @@ angular.module('nowLocateApp').controller('ExpedicionDialogController',
 
         var onSaveSuccess = function (result) {
             $scope.$emit('nowLocateApp:expedicionUpdate', result);
+
+
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };
@@ -29,9 +32,7 @@ angular.module('nowLocateApp').controller('ExpedicionDialogController',
                 Expedicion.update($scope.expedicion, onSaveSuccess, onSaveError);
             } else {
                 Expedicion.save($scope.expedicion, onSaveSuccess, onSaveError);
-                $scope.temperatura.expedicion = $scope.expedicion.id;
-                $scope.temperatura.temperatura = 10;
-                Temperatura.save($scope.temperatura);
+
             }
         };
 

@@ -2,7 +2,9 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Expedicion;
+import com.mycompany.myapp.domain.Temperatura;
 import com.mycompany.myapp.repository.ExpedicionRepository;
+import com.mycompany.myapp.repository.TemperaturaRepository;
 import com.mycompany.myapp.repository.search.ExpedicionSearchRepository;
 import com.mycompany.myapp.service.MailService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +49,9 @@ public class ExpedicionResource {
     @Inject
     private MailService mailService;
 
+    @Inject
+    private TemperaturaRepository temperaturaRepository;
+
     /**
      * POST  /expedicions -> Create a new expedicion.
      */
@@ -58,6 +65,55 @@ public class ExpedicionResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("expedicion", "idexists", "A new expedicion cannot already have an ID")).body(null);
         }
         Expedicion result = expedicionRepository.save(expedicion);
+        //INICIO:Crea un registro de temperaturas segun la cantidad de dias.
+        //START:Create a new temperature record according to the number of days.
+
+        int tempMax = (result.getTempMax()+1);
+        int tempMin = (result.getTempMin()-1);
+        LocalDate endDate = result.getFechaEntrega();
+        LocalDate startDate = result.getFechaInicio();
+
+        long days = Period.between(startDate, endDate).getDays();
+
+        long entradasTemp = days*2;
+        for(int i=0;i<entradasTemp;i++) {
+                int random = ((int)(Math.random()*(tempMax-tempMin))+tempMin);
+                if(tempMax>result.getTempMax()){
+
+                    //construcción del cuerpo del email
+                    String averia = "La temperatura de la expedicion con id: " +
+                        result.getId() + " a sobrepasado el pico de temperatura adecuado en: " + tempMax +
+                        " cuando el maximo esta establecido en: " + result.getTempMax();
+
+                    //envio del email una vez construido el cuerpo
+
+                    mailService.sendEmail("amoleron@gmail.com",
+                        "Temperatura sobrepasada expedición:" + result.getId(),
+                        averia,
+                        false,
+                        false);
+
+                }
+                if(tempMin<result.getTempMin()){
+                    String averia = "La temperatura de la expedicion con id:" +
+                        result.getId() + " a disminuido la temperatura adecuado en: " + tempMin +
+                        " cuando el minimo establecido es: " + result.getTempMin();
+                    mailService.sendEmail("amoleron@gmail.com",
+                        "Temperatura sobrepasada expedición:" + result.getId(),
+                        averia,
+                        false,
+                        false);
+                }
+                Temperatura temperatura = new Temperatura();
+                temperatura.setExpedicion(result);
+                temperatura.setTemperatura(random);
+                temperaturaRepository.save(temperatura);
+
+            }
+
+        //FIN:Crea un registro de temperaturas segun la cantidad de dias.
+        //END:Create a new temperature record according to the number of days.
+
         expedicionSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/expedicions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("expedicion", result.getId().toString()))
