@@ -1,36 +1,35 @@
 <div>
-    <h2 translate="nowLocateApp.expedicion.home.title">Expedicions</h2>
     <jh-alert></jh-alert>
-    <div class="container">
+    <div class="container" style="margin-top:100px">
         <div class="row">
+            <div class="col-md-3"><h2>Expediciones</h2></div>
+
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="expedicion.new">
-                    <span class="glyphicon glyphicon-flash"></span> <span translate="nowLocateApp.expedicion.home.createLabel">Create a new Expedicion</span>
-                </button>
-            </div>
-            <div class="col-md-8">
-                <form name="searchForm" class="form-inline">
+                <form name="searchForm" class="form-inline" style="margin-top:20px;">
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
                     </div>
-                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Expedicion</span>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Buscar expedición</span>
                     </button>
                 </form>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" ui-sref="expedicion.new" style="margin-top:20px;">
+                    <span class="glyphicon glyphicon-plus"></span> <span >Nueva expedición</span>
+                </button>
             </div>
         </div>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table-striped col-lg-10 col-lg-offset-1" style="height:300px;">
             <thead>
-                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <tr style="border-bottom: 3px solid #ddd;" jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="fechaInicio"><span translate="nowLocateApp.expedicion.fechaInicio">FechaInicio</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="fechaEntrega"><span translate="nowLocateApp.expedicion.fechaEntrega">FechaEntrega</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="frigorifico"><span translate="nowLocateApp.expedicion.frigorifico">Frigorifico</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="tempMax"><span translate="nowLocateApp.expedicion.tempMax">TempMax</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="tempMin"><span translate="nowLocateApp.expedicion.tempMin">TempMin</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="descripcion"><span translate="nowLocateApp.expedicion.descripcion">Descripcion</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="camion.matricula"><span translate="nowLocateApp.expedicion.camion">camion</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="delegacionInicio.localidad"><span translate="nowLocateApp.expedicion.delegacionInicio">delegacionInicio</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="delegacionFin.localidad"><span translate="nowLocateApp.expedicion.delegacionFin">delegacionFin</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -38,14 +37,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="expedicion in expedicions track by expedicion.id">
+                <tr style="border-bottom: 2px solid #ddd;" ng-repeat="expedicion in expedicions track by expedicion.id">
                     <td><a ui-sref="expedicion.detail({id:expedicion.id})">{{expedicion.id}}</a></td>
                         <td>{{expedicion.fechaInicio | date:'mediumDate'}}</td>
                         <td>{{expedicion.fechaEntrega | date:'mediumDate'}}</td>
-                    <td>{{expedicion.frigorifico}}</td>
                     <td>{{expedicion.tempMax}}</td>
                     <td>{{expedicion.tempMin}}</td>
-                    <td>{{expedicion.descripcion}}</td>
                     <td>
                         <a ui-sref="camion.detail({id:expedicion.camion.id})">{{expedicion.camion.matricula}}</a>
                     </td>
@@ -56,26 +53,19 @@
                         <a ui-sref="delegacion.detail({id:expedicion.delegacionFin.id})">{{expedicion.delegacionFin.localidad}}</a>
                     </td>
                     <td>
-                        <button type="submit"
-                                ui-sref="expedicion.detail({id:expedicion.id})"
-                                class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="expedicion.edit({id:expedicion.id})"
-                                class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="expedicion.delete({id:expedicion.id})"
-                                class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="expedicion.showMap({id:expedicion.id})"
-                                class="btn btn-success btn-sm">
-                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Ruta</span>
-                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="z-index: 1000;">
+
+                                <li><a ui-sref="expedicion.detail({id:expedicion.id})"><span class="glyphicon glyphicon-eye-open"></span><span translate="entity.action.view"> View</span></a></li>
+                                <li><a ui-sref="expedicion.edit({id:expedicion.id})"><span class="glyphicon glyphicon-pencil"></span><span translate="entity.action.edit"> Edit</span></a></li>
+                                <li><a ui-sref="expedicion.delete({id:expedicion.id})"><span class="glyphicon glyphicon-remove-circle"></span><span translate="entity.action.delete"> Delete</span></a></li>
+                                <li><a ui-sref="expedicion.showMap({id:expedicion.id})"><span class="glyphicon glyphicon-globe"></span><span> Ruta</span></a></li>
+                                <li><a ui-sref="expedicion.showGrap({id:expedicion.id})"><span class="glyphicon glyphicon-stats"></span><span> Graficas </span></a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             </tbody>

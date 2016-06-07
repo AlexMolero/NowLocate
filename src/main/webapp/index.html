@@ -10,6 +10,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/logoNowLocate.png" />
         <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
         <!-- endbower -->
         <!-- endbuild -->
@@ -25,15 +26,14 @@
             <div id="sidebar-wrapper" ui-view="navbar" ng-cloak=""></div>
         </div>
         <div class="container" style="float: left;">
-            <div class="header" style="width: auto;">
-                <img  style=" height: 30px; width: 30px;margin: 5px;" src="assets/images/default-user-image.png">
-                <span style="color:white;" translate-values="{username: '{{account.login}}'}">{{account.login}}</span>
+            <div class="header">
+
                 <img  style="float:right; height:55px; margin: 5px; " src="assets/images/logoNowLocate.png">
             </div>
-            <div class="well" ui-view="content"></div>
+            <div class="well" ui-view="content" style="width:115%"></div>
 
-            <div class="footer">
-                <p class="right" style="color:white;" <!--translate="footer"--> NowLocate</p>
+            <div class="footer" style="width:115%">
+                <p class="right" style="color:white;"> <!--translate="footer"--> NowLocate</p>
             </div>
         </div>
 
@@ -181,16 +181,24 @@
     <script src="scripts/app/entities/expedicion/expedicion.js"></script>
         <script src="scripts/app/entities/expedicion/route-truck.controller.js"></script>
         <script src="scripts/app/entities/expedicion/expedicion.controller.js"></script>
-    <script src="scripts/app/entities/expedicion/expedicion-dialog.controller.js"></script>
+        <script src="scripts/app/entities/expedicion/graphic-temperature.controller.js"></script>
+        <script src="scripts/app/entities/expedicion/expedicion-dialog.controller.js"></script>
     <script src="scripts/app/entities/expedicion/expedicion-delete-dialog.controller.js"></script>
     <script src="scripts/app/entities/expedicion/expedicion-detail.controller.js"></script>
     <script src="scripts/components/entities/expedicion/expedicion.service.js"></script>
     <script src="scripts/components/entities/expedicion/expedicion.search.service.js"></script>
     <script src="bower_components/messageformat/locale/es.js"></script>
+
         <script src="bower_components/angular-google-maps-geocoder/src/angular-google-maps-geocoder.js"></script>
         <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
         <script src="bower_components/ngmap/testapp/scripts/markerclusterer.js"></script>
         <script src="https://maps.google.com/maps/api/js?libraries=places,visualization,drawing,geometry"></script>
+
+
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/nvd3/build/nv.d3.js"></script>
+        <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+        <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
 
         <script>
             $("#menu-toggle").click(function(e) {
@@ -206,6 +214,8 @@
     <script src="scripts/components/entities/temperatura/temperatura.service.js"></script>
     <script src="scripts/components/entities/temperatura/temperatura.search.service.js"></script>
     <!-- endbuild -->
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
 
         <style>
 
@@ -275,18 +285,22 @@
 
             .sidebar-nav li a:hover {
                 text-decoration: none;
-                background-size: 50%;
+                background-size: 10%;
                 background-color: #5e5e5e;
                 color: black;
+                width: 106px;
+                z-index: 100000;
+
             }
 
             .sidebar-nav li a:active,
             .sidebar-nav li a:focus {
                 text-decoration: none;
-                background-size: 50%;
+                background-size: 10%;
                 background-color: #5e5e5e;
                 color: black;
-                width: 156px;
+                width: 106px;
+                z-index: 100000;
             }
 
             .sidebar-nav > .sidebar-brand {
@@ -306,7 +320,7 @@
 
             @media(min-width:768px) {
                 #wrapper {
-                    padding-left: 150px;
+                    padding-left: 100px;
                 }
 
                 #wrapper.toggled {
@@ -314,7 +328,7 @@
                 }
 
                 #sidebar-wrapper {
-                    width: 150px;
+                    width: 100px;
                 }
 
                 #wrapper.toggled #sidebar-wrapper {
@@ -331,11 +345,65 @@
                     margin-right: 0;
                 }
             }
-            .menuSpan{ margin-left: 10px;}
+            .menuSpan{ margin-left: 23px; margin-top: 13px; font-size: 40px;}
             .menuTitle{ margin-left: 5px;}
             .menuTop{ margin-top: 60px;}
-            .header{ height: 70px; background-color: #2f4f90; width: auto;}
+            .header{
+                height: 70px;
+                background-color: #2F4F90;
+                width: 93.5%;
+                z-index: 10000 !important;
+                top: 0px !important;
+                position: fixed;
+                margin-left: 0px !important;
+            }
             .MenuHover{ width: 144px;}
+
+            .or-spacer {
+                margin-top: 100px;
+                margin-left: 100px;
+                width: 400px;
+                position: relative;
+            }
+            .or-spacer .mask {
+                overflow: hidden;
+                height: 20px;
+            }
+            .or-spacer .mask:after {
+                content: '';
+                display: block;
+                margin: -25px auto 0;
+                width: 100%;
+                height: 25px;
+                border-radius: 125px / 12px;
+                box-shadow: 0 0 8px black;
+            }
+            .or-spacer span {
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                bottom: 100%;
+                margin-bottom: -25px;
+                left: 50%;
+                margin-left: -25px;
+                border-radius: 100%;
+                box-shadow: 0 2px 4px #999;
+                background: white;
+            }
+            .or-spacer span i {
+                position: absolute;
+                top: 4px;
+                bottom: 4px;
+                left: 4px;
+                right: 4px;
+                border-radius: 100%;
+                border: 1px dashed #aaa;
+                text-align: center;
+                line-height: 40px;
+                font-style: normal;
+                color: #999;
+            }
+            
         </style>
 
     </body>

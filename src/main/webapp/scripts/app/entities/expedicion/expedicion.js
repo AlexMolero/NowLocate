@@ -146,5 +146,30 @@ angular.module('nowLocateApp')
                     $state.go('^');
                 })
             }]
+        }).state('expedicion.showGrap', {
+            parent: 'expedicion',
+            url: '/{id}/temperaturas',
+            data: {
+                authorities: ['ROLE_USER'],
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'scripts/app/entities/expedicion/graphicTemperature.html',
+                    controller: 'GraphicTemperatureController',
+                    size: 'md',
+                    resolve: {
+                        entity: ['Expedicion', function(Expedicion) {
+                            return Expedicion.get({id : $stateParams.id});
+                        }],
+                        temperaturas: ['Expedicion', function(Expedicion) {
+                            return Expedicion.temperaturas({id : $stateParams.id});
+                        }]
+                    }
+                }).result.then(function(result) {
+                    $state.go('expedicion', null, { reload: true });
+                }, function() {
+                    $state.go('^');
+                })
+            }]
         });
     });

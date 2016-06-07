@@ -68,48 +68,7 @@ public class ExpedicionResource {
         //INICIO:Crea un registro de temperaturas segun la cantidad de dias.
         //START:Create a new temperature record according to the number of days.
 
-        int tempMax = (result.getTempMax()+1);
-        int tempMin = (result.getTempMin()-1);
-        LocalDate endDate = result.getFechaEntrega();
-        LocalDate startDate = result.getFechaInicio();
-
-        long days = Period.between(startDate, endDate).getDays();
-
-        long entradasTemp = days*2;
-        for(int i=0;i<entradasTemp;i++) {
-                int random = ((int)(Math.random()*(tempMax-tempMin))+tempMin);
-                if(tempMax>result.getTempMax()){
-
-                    //construcción del cuerpo del email
-                    String averia = "La temperatura de la expedicion con id: " +
-                        result.getId() + " a sobrepasado el pico de temperatura adecuado en: " + tempMax +
-                        " cuando el maximo esta establecido en: " + result.getTempMax();
-
-                    //envio del email una vez construido el cuerpo
-
-                    mailService.sendEmail("amoleron@gmail.com",
-                        "Temperatura sobrepasada expedición:" + result.getId(),
-                        averia,
-                        false,
-                        false);
-
-                }
-                if(tempMin<result.getTempMin()){
-                    String averia = "La temperatura de la expedicion con id:" +
-                        result.getId() + " a disminuido la temperatura adecuado en: " + tempMin +
-                        " cuando el minimo establecido es: " + result.getTempMin();
-                    mailService.sendEmail("amoleron@gmail.com",
-                        "Temperatura sobrepasada expedición:" + result.getId(),
-                        averia,
-                        false,
-                        false);
-                }
-                Temperatura temperatura = new Temperatura();
-                temperatura.setExpedicion(result);
-                temperatura.setTemperatura(random);
-                temperaturaRepository.save(temperatura);
-
-            }
+        createTemperatures(result);
 
         //FIN:Crea un registro de temperaturas segun la cantidad de dias.
         //END:Create a new temperature record according to the number of days.
@@ -118,6 +77,34 @@ public class ExpedicionResource {
         return ResponseEntity.created(new URI("/api/expedicions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("expedicion", result.getId().toString()))
             .body(result);
+    }
+
+    private void createTemperatures(Expedicion result) {
+        int tempMax = (result.getTempMax()+1);
+        int tempMin = (result.getTempMin()-1);
+        LocalDate endDate = result.getFechaEntrega();
+        LocalDate startDate = result.getFechaInicio();
+        long days = Period.between(startDate, endDate).getDays();
+        long entradasTemp = days*2;
+        for(int i=0;i<entradasTemp;i++) {
+                int random = ((int)(Math.random()*(tempMax-tempMin))+tempMin);
+                if(random>result.getTempMax() ){
+                    String averia = "La temperatura de la expedicion con id: " +
+                        result.getId() + " a sobrepasado el pico de temperatura adecuado en: " + tempMax +
+                        " cuando el maximo esta establecido en: " + result.getTempMax();
+                    mailService.sendWarningTemperature(averia);
+                }
+                if(random<result.getTempMin()){
+                    String averia = "La temperatura de la expedicion con id:" +
+                        result.getId() + " a disminuido la temperatura adecuado en: " + tempMin +
+                        " cuando el minimo establecido es: " + result.getTempMin();
+                     mailService.sendWarningTemperature(averia);
+                }
+                Temperatura temperatura = new Temperatura();
+                temperatura.setExpedicion(result);
+                temperatura.setTemperatura(random);
+                temperaturaRepository.save(temperatura);
+            }
     }
 
     /**
@@ -185,6 +172,9 @@ public class ExpedicionResource {
     @Timed
     public ResponseEntity<Void> deleteExpedicion(@PathVariable Long id) {
         log.debug("REST request to delete Expedicion : {}", id);
+
+        //temperaturaRepository.deleteByExpedicion(id);
+
         expedicionRepository.delete(id);
         expedicionSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("expedicion", id.toString())).build();
@@ -204,4 +194,22 @@ public class ExpedicionResource {
             .stream(expedicionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+    /*
+    * ola
+    * */
+    @RequestMapping(value = "/expedicions/{id}/temperaturas",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List <Temperatura>> getTemperaturas(@PathVariable Long id) {
+
+         List<Temperatura> temperatura = temperaturaRepository.findAllByExpedicionId(id);
+
+        return Optional.ofNullable(temperatura)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }

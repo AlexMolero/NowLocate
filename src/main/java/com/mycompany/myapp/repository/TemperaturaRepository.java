@@ -11,6 +11,9 @@ import java.util.List;
  * Spring Data JPA repository for the Temperatura entity.
  */
 public interface TemperaturaRepository extends JpaRepository<Temperatura,Long> {
-    List<Temperatura> findAllByExpedicion(int expedicion);
+    List<Temperatura> findAllByExpedicionId(Long expedicion);
+
+    Long deleteByExpedicion(Long expedicion);
+
 
 }

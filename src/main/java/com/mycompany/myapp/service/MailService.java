@@ -104,7 +104,7 @@ public class MailService {
         String subject = messageSource.getMessage("email.reset.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
     }
-    
+
     @Async
     public void sendSocialRegistrationValidationEmail(User user, String provider) {
         log.debug("Sending social registration validation e-mail to '{}'", user.getEmail());
@@ -115,5 +115,24 @@ public class MailService {
         String content = templateEngine.process("socialRegistrationValidationEmail", context);
         String subject = messageSource.getMessage("email.social.registration.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
+    }
+    @Async
+    public void sendWarningTemperature(String content) {
+        log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
+            false, false, "amoleron@gmail.com", "Aviso de temperatura", content);
+
+        // Prepare message using a Spring helper
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, CharEncoding.UTF_8);
+            message.setTo("amoleron@gmail.com");
+            message.setFrom(jHipsterProperties.getMail().getFrom());
+            message.setSubject("Aviso de temperatura");
+            message.setText(content, false);
+            javaMailSender.send(mimeMessage);
+            log.debug("Sent e-mail to User '{}'", "amoleron@gmail.com");
+        } catch (Exception e) {
+            log.warn("E-mail could not be sent to user '{}', exception is: {}", "amoleron@gmail.com", e.getMessage());
+        }
     }
 }

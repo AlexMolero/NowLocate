@@ -3,14 +3,16 @@
 angular.module('nowLocateApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
     // jhipster-needle-angularjs-add-module JHipster will add new module
-    'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar','ngMap'])
+    'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar','ngMap','nvd3'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, ENV, VERSION) {
+
         // update the window title using params in the following
         // precendence
         // 1. titleKey parameter
         // 2. $state.$current.data.pageTitle (current state page title)
         // 3. 'global.title'
+
         var updateTitle = function(titleKey) {
             if (!titleKey && $state.$current.data && $state.$current.data.pageTitle) {
                 titleKey = $state.$current.data.pageTitle;

@@ -28,6 +28,11 @@ angular.module('nowLocateApp')
                     data.fechaEntrega = DateUtils.convertLocaleDateToServer(data.fechaEntrega);
                     return angular.toJson(data);
                 }
+            },
+
+            'temperaturas': {
+                method: 'GET', isArray: true, url: 'api/expedicions/:id/temperaturas'
+
             }
         });
     });
